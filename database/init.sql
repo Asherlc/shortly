@@ -1,4 +1,4 @@
 CREATE TABLE urls (
   url TEXT NOT NULL,
-  slug TEXT NOT NULL
+  slug TEXT NOT NULL UNIQUE
 );
