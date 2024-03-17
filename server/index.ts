@@ -4,7 +4,7 @@ import { createShortenedUrl } from "./url";
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.post("/urls", async (req: Request, res: Response) => {
+app.post("/api/urls", async (req: Request, res: Response) => {
   const shortenedUrl = await createShortenedUrl(req.body.url);
 
   res.status(201).json({ shortenedUrl });
