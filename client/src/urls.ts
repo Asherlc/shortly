@@ -23,6 +23,9 @@ export default async function createUrl(
   const response = await fetch(`/api/urls`, {
     method: "POST",
     body: JSON.stringify({ url: originalUrl }),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
   const responseJson = await response.json();

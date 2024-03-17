@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import createUrl from "./urls";
+import createUrl from "../src/urls";
 import { ZodError } from "zod";
 
 export default function Home() {
