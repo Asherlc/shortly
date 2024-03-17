@@ -32,6 +32,8 @@ ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
 
 # Note: Don't expose ports here, Compose will handle that for us
 
+RUN npm run prebuild
+
 # Build Next.js based on the preferred package manager
 RUN \
   if [ -f yarn.lock ]; then yarn build; \
@@ -45,5 +47,5 @@ CMD \
   if [ -f yarn.lock ]; then yarn start; \
   elif [ -f package-lock.json ]; then npm run start; \
   elif [ -f pnpm-lock.yaml ]; then pnpm start; \
-  else npm run start; \
+  else npm run dev; \
   fi
