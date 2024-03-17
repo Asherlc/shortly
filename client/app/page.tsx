@@ -22,12 +22,14 @@ export default function Home() {
           setErrors(null);
 
           try {
-            if (originalUrl) {
-              const newShortenedUrl = await createUrl(originalUrl);
-              setShortenedUrl(newShortenedUrl);
-            }
+            const newShortenedUrl = await createUrl(originalUrl || "");
+            setShortenedUrl(newShortenedUrl);
           } catch (e) {
-            if (e instanceof ZodError) setErrors(e);
+            if (e instanceof ZodError) {
+              setErrors(e);
+            } else {
+              throw e;
+            }
           }
         }}
       >
