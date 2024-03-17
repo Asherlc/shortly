@@ -19,7 +19,12 @@ export default function Home() {
       >
         <label className="flex flex-col text-sm text-slate-700">
           URL
-          <input type="url" required name="url" />
+          <input
+            className="h-full rounded-md border-0 p-2 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+            type="url"
+            required
+            name="url"
+          />
         </label>
         <button className="rounded bg-white p-4 text-slate-700">Shorten</button>
       </form>
