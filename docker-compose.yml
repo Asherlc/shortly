@@ -5,7 +5,7 @@ services:
     image: nodejs
     env_file: .env
     ports:
-      - "81:3000"
+      - "3001:80"
     volumes:
       - ./server:/code:ro
       - ./server/package.json:/code/package.json
@@ -31,6 +31,7 @@ services:
     ports:
       - 15432:5432
     volumes:
+      - pgdata:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
@@ -48,3 +49,6 @@ services:
       - database
 networks:
   app-network:
+
+volumes:
+  pgdata:

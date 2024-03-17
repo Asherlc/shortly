@@ -1,12 +1,13 @@
 "use client";
 
-import { useFormState } from "react-dom";
-import createUrl, { FormState } from "./actions";
-
-const initialState: FormState = {};
+import { useState } from "react";
+import createUrl from "./urls";
+import { ZodError } from "zod";
 
 export default function Home() {
-  const [state, formAction] = useFormState(createUrl, initialState);
+  const [originalUrl, setOriginalUrl] = useState<string | null>(null);
+  const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
+  const [errors, setErrors] = useState<ZodError<{ url: string }> | null>();
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 space-y-4">
@@ -15,7 +16,17 @@ export default function Home() {
       </header>
       <form
         className="flex flex-col items-center space-y-4"
-        action={formAction}
+        onSubmit={async (e) => {
+          e.preventDefault();
+
+          setErrors(null);
+
+          try {
+            if (originalUrl) createUrl(originalUrl);
+          } catch (e) {
+            if (e instanceof ZodError) setErrors(e);
+          }
+        }}
       >
         <label className="flex flex-col text-sm text-slate-700">
           URL
@@ -23,28 +34,30 @@ export default function Home() {
             className="h-full rounded-md border-0 p-2 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
             type="url"
             required
-            name="url"
+            onChange={(e) => {
+              setOriginalUrl(e.target.value);
+            }}
           />
         </label>
         <button className="rounded bg-white p-4 text-slate-700">Shorten</button>
       </form>
 
-      {state.errors && (
+      {errors && (
         <div>
           Errors:
           <ul>
-            {state.errors?.url?.map((error) => (
+            {errors.flatten().fieldErrors?.url?.map((error) => (
               <li key={error}>{error}</li>
             ))}
           </ul>
         </div>
       )}
 
-      {state.shortenedUrl && (
+      {shortenedUrl && (
         <div>
           Success! Your shortened url is{" "}
-          <a className="underline" href={state.shortenedUrl}>
-            {state.shortenedUrl}
+          <a className="underline" href={shortenedUrl}>
+            {shortenedUrl}
           </a>
         </div>
       )}

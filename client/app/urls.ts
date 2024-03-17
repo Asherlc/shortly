@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { z } from "zod";
 
@@ -14,22 +14,13 @@ const schema = z.object({
 });
 
 export default async function createUrl(
-  previousState: FormState,
-  formData: FormData
+  originalUrl: string
 ): Promise<FormState> {
-  const originalUrl = formData.get("url");
-
-  const validatedFields = schema.safeParse({
+  schema.parse({
     url: originalUrl,
   });
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
-  const response = await fetch(`${process.env.HOSTNAME}/urls`, {
+  const response = await fetch(`/api/urls`, {
     method: "POST",
     body: JSON.stringify({ url: originalUrl }),
   });
