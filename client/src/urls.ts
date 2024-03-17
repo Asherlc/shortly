@@ -29,7 +29,6 @@ export default async function createUrl(
   });
 
   const responseJson = await response.json();
-  console.log(responseJson);
 
   return {
     shortenedUrl: responseJson.shortenedUrl,
