@@ -15,7 +15,11 @@ app.post("/api/urls", async (req: Request, res: Response) => {
 app.get("/:slug", async (req: Request, res: Response) => {
   const originalUrl = await getOriginalUrl(req.params.slug);
 
-  res.redirect(301, originalUrl);
+  if (originalUrl) {
+    res.redirect(301, originalUrl);
+  } else {
+    res.status(404).send("Not found");
+  }
 });
 
 app.listen(port, () => {
