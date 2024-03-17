@@ -5,14 +5,13 @@ services:
     image: nodejs
     env_file: .env
     ports:
-      - "3001:80"
+      - "3001:3001"
     volumes:
       - ./server:/code:ro
       - ./server/package.json:/code/package.json
       - ./server/package-lock.json:/code/package-lock.json
     networks:
       - app-network
-    command: npm run start
     depends_on:
       - database
   client:
