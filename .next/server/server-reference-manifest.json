@@ -1,0 +1,14 @@
+{
+  "node": {
+    "29698726ff31bd9a85a24ef05aee6a57a613c591": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fasher.cohen%2FDownloads%2FNew%20Folder%20With%20Items%2Fshortly%2Fshortly%2Fapp%2Factions.ts%22%2C%5B%22default%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "I/k0SLXfY8zMLD49GO/APVCrYcQBcnqTytZe5IlR4gI="
+}
