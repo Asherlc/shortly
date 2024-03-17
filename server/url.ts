@@ -22,3 +22,17 @@ export async function createShortenedUrl(url: string): Promise<string> {
 
   return shortenedUrl.toString();
 }
+
+export async function getOriginalUrl(slug: string): Promise<string> {
+  const result = await sql`
+    SELECT url
+    FROM urls
+    WHERE slug = ${slug}
+  `;
+
+  if (result.length === 0) {
+    throw new Error(`No url for ${slug} found`);
+  }
+
+  return result[0].url;
+}
