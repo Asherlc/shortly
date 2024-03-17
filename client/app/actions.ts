@@ -17,8 +17,10 @@ export default async function createUrl(
   previousState: FormState,
   formData: FormData
 ) {
+  const originalUrl = formData.get("url");
+
   const validatedFields = schema.safeParse({
-    url: formData.get("url"),
+    url: originalUrl,
   });
 
   if (!validatedFields.success) {
@@ -27,7 +29,14 @@ export default async function createUrl(
     };
   }
 
+  const response = await fetch(`${process.env.HOSTNAME}/urls`, {
+    method: "POST",
+    body: JSON.stringify({ url: originalUrl }),
+  });
+
+  const responseJson = await response.json();
+
   return {
-    shortenedUrl: "123",
+    shortenedUrl: responseJson.shortenedUrl,
   };
 }
