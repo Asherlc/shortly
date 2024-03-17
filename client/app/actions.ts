@@ -16,7 +16,7 @@ const schema = z.object({
 export default async function createUrl(
   previousState: FormState,
   formData: FormData
-) {
+): Promise<FormState> {
   const originalUrl = formData.get("url");
 
   const validatedFields = schema.safeParse({
