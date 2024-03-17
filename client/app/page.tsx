@@ -22,7 +22,10 @@ export default function Home() {
           setErrors(null);
 
           try {
-            if (originalUrl) createUrl(originalUrl);
+            if (originalUrl) {
+              const newShortenedUrl = await createUrl(originalUrl);
+              setShortenedUrl(newShortenedUrl);
+            }
           } catch (e) {
             if (e instanceof ZodError) setErrors(e);
           }

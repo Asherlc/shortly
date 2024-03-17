@@ -2,20 +2,11 @@
 
 import { z } from "zod";
 
-export interface FormState {
-  errors?: {
-    url?: string[];
-  };
-  shortenedUrl?: string;
-}
-
 const schema = z.object({
   url: z.string().url(),
 });
 
-export default async function createUrl(
-  originalUrl: string
-): Promise<FormState> {
+export default async function createUrl(originalUrl: string): Promise<string> {
   schema.parse({
     url: originalUrl,
   });
@@ -30,7 +21,5 @@ export default async function createUrl(
 
   const responseJson = await response.json();
 
-  return {
-    shortenedUrl: responseJson.shortenedUrl,
-  };
+  return responseJson.shortenedUrl;
 }
