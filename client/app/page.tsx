@@ -59,11 +59,21 @@ export default function Home() {
       )}
 
       {shortenedUrl && (
-        <div>
-          Success! Your shortened url is{" "}
-          <a className="underline" href={shortenedUrl}>
-            {shortenedUrl}
-          </a>
+        <div className="flex flex-col items-center space-y-4">
+          <div>
+            Success! Your shortened url is{" "}
+            <a className="underline" href={shortenedUrl}>
+              {shortenedUrl}
+            </a>
+          </div>
+          <button
+            className="rounded bg-white p-2 text-slate-700"
+            onClick={() => {
+              navigator.clipboard.writeText(shortenedUrl);
+            }}
+          >
+            Copy
+          </button>
         </div>
       )}
     </main>
